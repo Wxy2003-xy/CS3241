@@ -221,6 +221,14 @@ void displayPolygon() {
             glBindTexture(GL_TEXTURE_2D, texEarth);  
             drawSpherePolygon(5, 0.8f);
     	glPopMatrix();
+        glPushMatrix();
+            glTranslatef(2.2f, 0, 0);
+            glScalef(0.25f,0.25f,0.25f);
+            glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+            glRotatef(2*alpha, 0,0,1);
+            glBindTexture(GL_TEXTURE_2D, texMoon);  
+            drawSpherePolygon(5, 0.8f);
+        glPopMatrix();
         glDepthMask(GL_FALSE);
         glPushMatrix();
             glScalef(1.02,1.02,1.02);
@@ -230,14 +238,6 @@ void displayPolygon() {
             drawSpherePolygon(5, 0.8f);
         glPopMatrix();
         glDepthMask(GL_TRUE);
-        glPushMatrix();
-            glTranslatef(2.2f, 0, 0);
-            glScalef(0.25f,0.25f,0.25f);
-            glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-            glRotatef(2*alpha, 0,0,1);
-            glBindTexture(GL_TEXTURE_2D, texMoon);  
-            drawSpherePolygon(5, 0.8f);
-        glPopMatrix();
     glPopMatrix();
     glutSwapBuffers();
 }
