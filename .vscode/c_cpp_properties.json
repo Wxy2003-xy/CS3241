@@ -1,0 +1,16 @@
+{
+    "configurations": [
+      {
+        "name": "macOS",
+        "compilerPath": "/opt/homebrew/bin/g++-14",
+        "intelliSenseMode": "gcc-arm64",
+        "cppStandard": "c++17",
+        "macFrameworkPath": [
+          "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks",
+          "/Library/Frameworks"
+        ]
+      }
+    ],
+    "version": 4
+  }
+  
