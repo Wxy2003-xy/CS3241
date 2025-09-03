@@ -20,7 +20,7 @@ using namespace std;
 
 GLfloat PI = 3.14;
 float alpha = 0.0, k=1;
-float delta = -90.0, epsilon = 0.0;
+float delta = -67.5, epsilon = 0.0;
 float tx = 0.0, ty=0.0;
 void drawAxes(float L = 1.0f) {
     glLineWidth(2.0f);
@@ -44,8 +44,8 @@ void drawAxes(float L = 1.0f) {
 inline float U(int j) { return j / 360.0f; }                   // s (wraps around)
 inline float V(int i) { return (i + 90.0f) / 180.0f; }         // t (south..north)
 
-GLuint texEarth = 0, texCloud = 0, currentTex = 0;
-
+GLuint texEarth = 0, texCloud = 0, currentTex = 0, texMoon = 0, texBg = 0;
+int winW = 600, winH = 600;
 
 GLuint loadTexture2D(const char* path, bool flip=true) {
     int w,h,n;
@@ -70,6 +70,38 @@ GLuint loadTexture2D(const char* path, bool flip=true) {
 
     stbi_image_free(data);
     return id;
+}
+
+void drawBackground() {
+    if (!texBg) return;
+
+    glDisable(GL_DEPTH_TEST);
+    glDepthMask(GL_FALSE);
+    glDisable(GL_CULL_FACE);
+
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix(); glLoadIdentity();
+    glOrtho(0, winW, 0, winH, -1, 1);
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix(); glLoadIdentity();
+
+    glBindTexture(GL_TEXTURE_2D, texBg);
+    glColor4f(1,1,1,1);
+
+    glBegin(GL_QUADS);
+        glTexCoord2f(0,0); glVertex2f(0,    0);
+        glTexCoord2f(1,0); glVertex2f(winW, 0);
+        glTexCoord2f(1,1); glVertex2f(winW, winH);
+        glTexCoord2f(0,1); glVertex2f(0,    winH);
+    glEnd();
+
+    glPopMatrix();
+    glMatrixMode(GL_PROJECTION); glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+
+    glDepthMask(GL_TRUE);
+    glEnable(GL_DEPTH_TEST);
 }
 
 
@@ -170,7 +202,8 @@ void reshape(int w, int h) {
 
 void displayPolygon() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+    glEnable(GL_TEXTURE_2D);
+    drawBackground();
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glTranslatef(0.0f, 0.0f, -3.0f);
@@ -187,21 +220,25 @@ void displayPolygon() {
             glColor3f(1.0f, 1.0f, 1.0f);
             glBindTexture(GL_TEXTURE_2D, texEarth);  
             drawSpherePolygon(5, 0.8f);
-            drawAxes(1.0f); 
-            glDepthMask(GL_FALSE);
-            // glEnable(GL_CULL_FACE);
-            glPushMatrix();
-                glScalef(1.05,1.05,1.05);
-                glColor4f(1.0f, 1.0f, 1.0f, 0.8f);
-                glBindTexture(GL_TEXTURE_2D, texCloud);  
-                drawSpherePolygon(5, 0.8f);
-            glPopMatrix();
-            // glDisable(GL_CULL_FACE);
-            glDepthMask(GL_TRUE);
-
     	glPopMatrix();
+        glDepthMask(GL_FALSE);
+        glPushMatrix();
+            glScalef(1.02,1.02,1.02);
+            glColor4f(1.0f, 1.0f, 1.0f, 0.7f);
+            glRotatef(0.8*alpha, 0,0,1);
+            glBindTexture(GL_TEXTURE_2D, texCloud);  
+            drawSpherePolygon(5, 0.8f);
+        glPopMatrix();
+        glDepthMask(GL_TRUE);
+        glPushMatrix();
+            glTranslatef(2.2f, 0, 0);
+            glScalef(0.25f,0.25f,0.25f);
+            glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+            glRotatef(2*alpha, 0,0,1);
+            glBindTexture(GL_TEXTURE_2D, texMoon);  
+            drawSpherePolygon(5, 0.8f);
+        glPopMatrix();
     glPopMatrix();
-
     glutSwapBuffers();
 }
 
@@ -214,8 +251,9 @@ void init(void)
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE); 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    texEarth = loadTexture2D("earth.jpg");
+    texBg = loadTexture2D("stars.jpg"); 
+    texEarth = loadTexture2D("earth_hires.jpg");
+    texMoon = loadTexture2D("moon.jpg");
     texCloud = loadTexture2D("clouds.png");
     currentTex = texEarth; 
 }
@@ -315,7 +353,7 @@ int main(int argc, char **argv)
 	glutReshapeFunc(reshape);
 	//glutMouseFunc(mouse);
 	glutKeyboardFunc(keyboard);
-	glutIdleFunc([]{alpha += 0.8f; 
+	glutIdleFunc([]{alpha += 0.6f; 
                     // delta += 0.2; 
                     // epsilon += 0.2; 
                     glutPostRedisplay(); });
