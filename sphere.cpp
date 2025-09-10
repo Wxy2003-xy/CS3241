@@ -153,7 +153,7 @@ void displayPlot() {
 		glRotatef(delta, 1,0,0);
 		glRotatef(epsilon, 0,0,1);
 		glScalef(k,k,k);
-		drawAxes(1.0f);          // <- follows the object
+		drawAxes(1.0f);
 		glPushMatrix();
 			glScalef(1,1,1);
 			drawSpherePlot(10,0.8f);
