@@ -1,0 +1,654 @@
+\documentclass[8pt,twocolumn]{extarticle}
+\usepackage[utf8]{inputenc}    
+\usepackage[T1]{fontenc}       
+\usepackage{lmodern}           
+\usepackage{amsmath}   
+\usepackage{amssymb}   
+\usepackage{geometry}  
+\usepackage{enumerate} 
+\usepackage{xcolor}  
+\usepackage{amsthm}
+\usepackage{setspace}
+\usepackage{pdfpages}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{6pt plus 2pt minus 2pt}{1pt}
+\titlespacing*{\subsection}{0pt}{4pt plus 1pt minus 1pt}{1pt}
+\titlespacing*{\subsubsection}{0pt}{3pt plus 1pt minus 1pt}{1pt}
+\setlist{nosep}
+\setlist{topsep=1pt, itemsep=1pt, parsep=1pt}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newenvironment{system}%
+{\left\lbrace\begin{array}{@{}l@{}}}%
+{\end{array}\right.}
+\usepackage{listings}  
+\lstset{
+  basicstyle=\ttm\linespread{1.0}\selectfont,
+  frame=tb,
+  language=C,
+  language=Java,
+  aboveskip=2mm,
+  belowskip=2mm,
+  showstringspaces=false    ,   
+  columns=fullflexible,
+  basicstyle=\ttfamily\footnotesize,
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=2,
+  keepspaces=true,
+  keywordstyle=\color{blue},
+  commentstyle=\color{brown},
+  stringstyle=\color{orange},
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  framexleftmargin=2pt,
+  framexrightmargin=2pt
+}
+\usepackage{dsfont}
+\renewcommand{\baselinestretch}{0.5}
+
+\linespread{0.9}
+
+\geometry{top=0.2in, bottom=0.2in, left=0.2in, right=0.2in}
+\begin{document}
+\subsection*{Normal Vector}
+For a triangle ABC, $N = (B - A) \times (C - A)$ (Select 2 edges counter-clockwise, and normalize)
+\subsection*{Vector Distance}
+For two points $P=(x_1,y_1,z_1), Q=(x_2,y_2,z_2)$,
+\[
+\|\overrightarrow{PQ}\| = \sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}.
+\]
+For $\mathbf{u}, \mathbf{v} \in \mathbb{R}^3$,
+$
+\mathbf{u} \cdot \mathbf{v} = u_x v_x + u_y v_y + u_z v_z
+= \|\mathbf{u}\|\,\|\mathbf{v}\|\cos\theta.
+$\\
+\textbf{Use:} angle between vectors, projection, parallelism.
+\[
+\mathbf{u} \times \mathbf{v} =
+\begin{vmatrix}
+\mathbf{i} & \mathbf{j} & \mathbf{k} \\
+u_x & u_y & u_z \\
+v_x & v_y & v_z
+\end{vmatrix} = \begin{bmatrix}u_y v_z - u_z v_y\\ u_z v_x - u_x v_z \\ u_x v_y - u_y v_x\end{bmatrix}\]
+gives a vector orthogonal to both $\mathbf{u}, \mathbf{v}$.  
+\textbf{Use:} normal computation, orientation.
+\subsection*{Common Transformation Matrices}
+Translation: \texttt{glTranslatef$(t_x,t_y,t_z)$}; Scaling by $(s_x,s_y,s_z)$:\\
+  $
+  T = \begin{bmatrix}
+  1 & 0 & 0 & t_x \\
+  0 & 1 & 0 & t_y \\
+  0 & 0 & 1 & t_z \\
+  0 & 0 & 0 & 1
+  \end{bmatrix}
+  $
+  $
+  S = \begin{bmatrix}
+  s_x & 0 & 0 & 0 \\
+  0 & s_y & 0 & 0 \\
+  0 & 0 & s_z & 0 \\
+  0 & 0 & 0 & 1
+  \end{bmatrix}
+  $\\
+Rotation about $x, y, z$ axis: \texttt{glRotatef$(\theta, x?, y?, z?)$}\\
+$
+R_x(\theta) =
+\begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & \cos\theta & -\sin\theta & 0 \\
+0 & \sin\theta & \cos\theta & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$
+$
+R_y(\theta) =
+\begin{bmatrix}
+\cos\theta & 0 & \sin\theta & 0 \\
+0 & 1 & 0 & 0 \\
+-\sin\theta & 0 & \cos\theta & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$\\
+$
+R_z(\theta) =
+\begin{bmatrix}
+\cos\theta & -\sin\theta & 0 & 0 \\
+\sin\theta & \cos\theta & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{bmatrix}
+$\\
+Perspective (simple form):$\rightsquigarrow$
+Initialize → register callback functions → enter glutMainLoop() → wait for events → call corresponding callbacks → program exits when closed.
+\subsection*{Primitive Drawing}
+\begin{itemize}
+  \item \textbf{glBegin(mode)} \dots \textbf{glEnd()}  
+  Define a sequence of vertices for drawing.  
+  \texttt{mode} = GL\_POINTS, GL\_LINES, GL\_TRIANGLES, GL\_QUADS, etc. Note: only draw convex, planar polygons.
+    \begin{lstlisting}
+glBegin(GL_TRIANGLES);
+    glColor3f(1,0,0); glVertex3f(0,0,0);
+    glColor3f(0,1,0); glVertex3f(1,0,0);
+    glColor3f(0,0,1); glVertex3f(0,1,0);
+glEnd();\end{lstlisting}
+  \item \textbf{glColor3f(r,g,b)}  
+  Set current drawing color (RGB, 0–1).
+
+  \item \textbf{glVertex2f(x,y)}, \textbf{glVertex3f(x,y,z)}  
+  Specify a vertex in 2D or 3D.
+\end{itemize}
+
+\subsection*{State Management}
+\begin{itemize}
+  \item \textbf{glLoadIdentity()}  
+  Reset current matrix to identity (no transform).
+
+  \item \textbf{glClear(mask)}  
+  Clear buffers. Common: \texttt{GL\_COLOR\_BUFFER\_BIT | GL\_DEPTH\_BUFFER\_BIT}.
+
+  \item \textbf{glFlush()}  
+  Force execution of all issued OpenGL commands (mainly for single-buffered mode).
+\end{itemize}
+
+\subsection*{Window / Display Setup}
+\begin{itemize}
+  \item \textbf{glutInit(\&argc, argv)}  
+  Initialize GLUT.
+
+  \item \textbf{glutInitDisplayMode(flags)}  
+  Select display mode, e.g. \texttt{GLUT\_RGB | GLUT\_DOUBLE | GLUT\_DEPTH}.
+
+  \item \textbf{glutDisplayFunc(func)}  
+  Register display callback (called whenever window redraws).
+
+  \item \textbf{glutMainLoop()}  
+  Enter GLUT event loop (program stays here).
+\end{itemize}
+
+\subsection*{Shading}
+\begin{itemize}
+  \item \textbf{glShadeModel(mode)}  
+  \texttt{GL\_FLAT} = uniform color per primitive,  
+  \texttt{GL\_SMOOTH} = interpolated colors.
+\end{itemize}
+
+\subsection*{Matrices \& Viewing}
+\begin{itemize}
+  \item \textbf{glMatrixMode(mode)}  
+  Select current matrix stack: \texttt{GL\_MODELVIEW} or \texttt{GL\_PROJECTION}.
+
+  \item \textbf{GL\_MODELVIEW}  
+  Holds modeling + viewing transforms.
+
+  \item \textbf{GL\_PROJECTION}  
+  Holds projection (camera lens) transforms.
+
+  \item \textbf{gluOrtho2D(left,right,bottom,top)}  
+  2D orthographic projection.
+
+  \item \textbf{glOrtho(l,r,b,t,n,f)}  
+  3D orthographic projection volume.
+
+  \item \textbf{glFrustum(l,r,b,t,n,f)}  
+  Perspective frustum volume.
+
+  \item \textbf{gluPerspective(fov,aspect,n,f)}  
+  Perspective projection with vertical field-of-view.
+
+  \item \textbf{gluLookAt(eye,center,up)}  
+  Set camera at \texttt{eye}, looking at \texttt{center}, with \texttt{up} direction.
+\end{itemize}
+
+\subsection*{Depth \& Culling}
+\begin{itemize}
+  \item \textbf{glEnable(cap)}  
+  Turn on a feature. E.g. \texttt{GL\_DEPTH\_TEST}, \texttt{GL\_CULL\_FACE}.
+  \item \textbf{glDepthMask(flag)}  
+  Enable/disable writing to depth buffer. Useful for transparency.
+  \item \textbf{glCullFace(mode)}  
+  Choose which faces to cull: \texttt{GL\_BACK}, \texttt{GL\_FRONT}, \texttt{GL\_FRONT\_AND\_BACK}.
+  \item \textbf{GL\_DEPTH\_TEST}  
+  Feature that discards fragments hidden behind others in depth.
+\end{itemize}
+
+
+\section{Model--View and 3D Representation (Algorithms \& Data Structures)}
+
+\subsection*{Model--View: Frames, Matrices, and Hierarchies}
+\begin{itemize}
+  \item \textbf{Model--View matrix} \(M\): concatenates object--to--world (model) and world--to--camera (view) transforms. Typical composition (right-multiplied): \(M \gets M\,T(\mathbf t)\,R(\theta,\hat{\mathbf a})\,S(s_x,s_y,s_z)\). \emph{Order matters} (non-commutative).
+  \item \textbf{Matrix stack}: use \verb|glPushMatrix|/\verb|glPopMatrix| to delimit local frames. Transform state between pushes affects all descendants; popping restores the parent frame.
+  \item \textbf{Hierarchical transforms}: model parts as a tree (e.g., torso \(\to\) arm \(\to\) forearm \(\to\) hand). Each node stores a local transform; the global pose is the product along the path from root to the node. Animations vary local parameters over time.
+  \item \textbf{Orientation/winding}: triangle order encodes front face (right-hand rule). Choose CCW or CW consistently; configure the API (e.g., \verb|glFrontFace(GL_CCW)|) and optional back-face culling.
+\end{itemize}
+
+\subsection*{3D Object Representations}
+\begin{itemize}
+  \item \textbf{Independent faces}: each face stores three vertex \((x,y,z)\). \emph{Pros}: simplest. \emph{Cons}: duplicated vertices; no explicit adjacency/topology.
+  \item \textbf{Indexed face set (triangle list)}: a \emph{vertex array} of unique points plus a \emph{face array} of integer triplets (indices). \emph{Pros}: shared vertices, compact, GPU-friendly. \emph{Cons}: still lacks explicit edge/face adjacency.
+  \item \textbf{Adjacency-enriched meshes}: store connectivity to enable fast traversal and editing.
+    \begin{itemize}
+      \item \emph{Per-vertex/face adjacency lists}: neighbors of a vertex; neighboring faces of a face.
+      \item \emph{Half-edge / winged-edge} (canonical for robust geometry): each directed edge stores pointers to its origin vertex, twin, next/prev in the face, and incident face. \emph{Pros}: \(O(1)\) local traversal; supports topology edits. \emph{Cons}: higher memory, more bookkeeping.
+    \end{itemize}
+  \item \textbf{Other representations} (for context): parametric patches, CSG, spatial subdivision (voxels), implicit surfaces.
+\end{itemize}
+
+\subsection*{Core Algorithms on Meshes}
+\begin{itemize}
+  \item \textbf{Vertex deduplication} (build indexed mesh): hash \((x,y,z)\) (with epsilon tolerance) to map repeated coordinates to one index; emit faces as index triplets.
+  \item \textbf{Face normals}: for triangle \(v_0,v_1,v_2\),
+  \[
+    \mathbf n_f = \frac{(v_1 - v_0) \times (v_2 - v_0)}{\|(v_1 - v_0) \times (v_2 - v_0)\|}.
+  \]
+  \item \textbf{Vertex normals} (smooth shading): area- or angle-weighted average of incident face normals, then renormalize.
+  \item \textbf{Topology checks}: manifoldness (each edge has at most two incident faces), consistent winding, boundary detection (edges with one incident face), connected components (\( \mathrm{DFS}/\mathrm{BFS} \) over adjacency).
+  \item \textbf{Rendering paths}:
+    \begin{itemize}
+      \item Indexed draw calls (e.g., \verb|glDrawElements|) for an indexed face set.
+      \item Depth buffering for visibility (preferred) vs.\ painter’s algorithm (order-dependent).
+      \item Optional back-face culling to skip backfacing triangles.
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Practical Tips}
+\begin{itemize}
+  \item Keep \emph{geometry} (vertex positions) separate from \emph{topology} (indices/connectivity); this avoids numeric drift and reduces memory.
+  \item Use the matrix stack to isolate local edits: push, apply local \(T/R/S\), draw child, pop.
+  \item Be consistent with triangle winding across the asset pipeline; fix mismatches at import.
+\end{itemize}
+
+
+\section*{Hidden Surface Removal (HSR) + 3D BSP Cheatsheet}
+\subsection*{Context}
+After modeling, viewing, and perspective transforms, we must ensure polygons are drawn in correct visibility order to avoid “wrong drawing order.” Two broad families exist: \emph{object-precision} (control draw order) and \emph{image-precision} (decide per-pixel overwrite).
+\subsubsection*{Object-precision (orderly).}
+Depth sort with splitting (e.g., Weiler–Atherton) and \textbf{BSP trees} produce a back-to-front order for any viewpoint. Handles transparency but can be expensive to build or split polygons. 
+\subsubsection*{Image-precision (non-orderly).}
+\textbf{Z-buffer} keeps a depth value per pixel; simple and hardware-friendly, robust for interpenetrating geometry, but suffers from precision issues (Z-fighting) and limited transparency. 
+\subsection*{Binary Space Partitioning (BSP) in 3D}
+\textbf{Goal:} Preprocess a static polygon set into a tree so that, for any camera point $p$, an in-order traversal yields a correct back-to-front drawing order. Standard in classic FPS engines.
+\subsubsection*{Definitions}
+Each node stores:
+\begin{itemize}
+  \item A \textbf{splitting plane} $\Pi:\ \mathbf{n}\cdot\mathbf{x}+d=0$ coincident with a polygon $P$ (node’s polygon).
+  \item Two child subspaces: \emph{Back} ($\mathbf{n}\cdot\mathbf{x}+d<0$) and \emph{Front} ($>0$).
+  \item Polygons in the node’s plane; polygons crossing $\Pi$ are split into coplanar parts for the two sides.
+\end{itemize}
+\emph{Note:} In practice, any polygon can be chosen to define the split; repeated recursively until leaves contain simple geometry. :contentReference[oaicite:4]{index=4}
+\subsubsection*{Construction (static scene)}
+\begin{enumerate}
+  \item If set $S$ of polygons is empty: return null.
+  \item Choose a polygon $A\in S$ and define its plane $\Pi_A$.
+  \item Partition every $Q\in S\setminus\{A\}$ against $\Pi_A$:
+    \begin{itemize}
+      \item If entirely in back/front half-space, send to that child set.
+      \item If straddling $\Pi_A$, split $Q$ into $Q_\text{back}$ and $Q_\text{front}$.
+      \item If coplanar with $\Pi_A$, attach to the node (commonly to a coplanar list).
+    \end{itemize}
+  \item Recurse on back set to build \texttt{node->back}; recurse on front set for \texttt{node->front}.
+\end{enumerate}
+This preprocessing is view-independent and reused for all camera positions. :contentReference[oaicite:5]{index=5}
+
+\subsubsection*{Rendering (any viewpoint $p$)}
+For a node with plane $\Pi:\mathbf{n}\cdot\mathbf{x}+d=0$:
+\begin{enumerate}
+  \item Compute $s=\mathbf{n}\cdot p + d$.
+  \item If $s>0$ (camera in front half-space): \\
+        \hspace*{1em} \texttt{draw(node->back)} $\rightarrow$ \texttt{draw(node->coplanar)} $\rightarrow$ \texttt{draw(node->front)}
+  \item If $s<0$ (camera in back half-space): \\
+        \hspace*{1em} \texttt{draw(node->front)} $\rightarrow$ \texttt{draw(node->coplanar)} $\rightarrow$ \texttt{draw(node->back)}
+\end{enumerate}
+This is exactly a view-dependent in-order traversal that yields back-to-front order. Transparency becomes straightforward (alpha-blend as you go). :contentReference[oaicite:6]{index=6}
+\textbf{Build BSP:}
+\begin{enumerate}
+  \item Choose $A$ as root; split $B$ and $C$ against $\Pi_A$. They are not straddling ($z=0$), so both go fully to either front ($z>0$) or back ($z<0$) depending on their extents. Suppose both lie in \emph{front} ($z>0$) for illustration $\Rightarrow$ \texttt{root->back = null}, \texttt{root->front} contains $\{B,C\}$.
+  \item Recurse on \texttt{front}: choose $B$ next, partition $C$ by $\Pi_B$ into $C_\text{front}$ ($x>0$) and $C_\text{back}$ ($x<0$).
+  \item Continue until sets become simple leaves.
+\end{enumerate}
+
+\textbf{Render for a viewpoint.}
+Let $p=(2,2,2)$:
+\[
+\mathbf{n}_A\cdot p + d_A = 2>0 \Rightarrow \text{at root, draw Back, then }A,\text{ then Front}.
+\]
+Since \texttt{Back} is empty: draw $A$ (the $z=0$ polygon). Descend to \texttt{Front} (node $B$). With $p$:
+\[
+\mathbf{n}_B\cdot p + d_B = 2>0 \Rightarrow \text{draw Back subtree of }B,\ \text{then }B,\ \text{then Front subtree}.
+\]
+Those subtrees contain the parts of $C$ ($C_\text{back}$ at $x<0$ and $C_\text{front}$ at $x>0$). The emitted sequence is a correct back-to-front order for this $p$. If we move to $p'$, the traversal order flips accordingly—\emph{without rebuilding the tree}. :contentReference[oaicite:7]{index=7}
+
+\subsection*{Pros / Cons (at a glance)}
+\begin{itemize}
+  \item \textbf{Pros:} Single precomputation supports \emph{all} viewpoints; good for transparency ordering; widely used in classic game engines (static maps). :contentReference[oaicite:8]{index=8}
+  \item \textbf{Cons:} Expensive splits; not ideal for dynamic/moving geometry; preprocessing time and potential growth in polygon count. :contentReference[oaicite:9]{index=9}
+\end{itemize}
+
+\subsection*{OpenGL Hooks (use with BSP or Z-buffer)}
+\begin{itemize}
+  \item Depth buffer: \verb|glEnable(GL_DEPTH_TEST); glClear(GL_COLOR_BUFFER_BIT| \verb| GL_DEPTH_BUFFER_BIT); glDepthMask(GL_TRUE);| (clear each frame). :contentReference[oaicite:10]{index=10}
+  \item Back-face culling: \verb|glEnable(GL_CULL_FACE); glCullFace(GL_BACK);| Use consistent winding (\verb|glFrontFace(GL_CCW)|). Test via $\mathbf{V}\cdot\mathbf{N}>0$. :contentReference[oaicite:11]{index=11}
+\end{itemize}
+
+This emits a back-to-front order; swap the order to front-to-back if you prefer early-Z culling with an opaque Z-buffer pass. :contentReference[oaicite:12]{index=12}
+
+
+\section{Projection}
+
+\subsection*{Families of Projections}
+\begin{itemize}
+  \item \textbf{Orthographic (parallel)}: Projectors are parallel; depth is discarded (e.g., take \((x,y)\)). Preserves sizes along projector direction; good for CAD/engineering drawings; less realistic.
+  \item \textbf{Perspective}: Projectors meet at a center of projection; distant objects appear smaller (foreshortening).
+\end{itemize}
+
+\subsection*{Perspective Basics}
+\begin{itemize}
+  \item Canonical setup: camera at \((0,0,-f)\) looking along \(+z\); image plane at \(z=0\).
+  \item Mapping:
+  $
+    x'=\frac{f}{z}\,x,\qquad y'=\frac{f}{z}\,y.
+  $
+  \item Homogeneous form: use a perspective projection matrix to map to clip space; after division by \(w\) you obtain normalized device coordinates (NDC).
+\end{itemize}
+\[P = \begin{bmatrix}
+  1 & 0 & 0 & 0 \\
+  0 & 1 & 0 & 0 \\
+  0 & 0 & 1 & 0 \\
+  0 & 0 & \frac{1}{f} & 1
+  \end{bmatrix} \text{homogenous coord: }\begin{bmatrix}
+    x \\ y \\ z\\ \frac{z+f}{f}
+  \end{bmatrix} = \begin{bmatrix}
+    \frac{fx}{z+f}\\ \frac{yf}{z+f}\\ \frac{zf}{z+f}
+  \end{bmatrix}\]
+  \subsection{Model--View Matrix and Transform State}
+
+  \paragraph{Where a vertex goes.}
+  Whenever you submit a vertex \(p\) (e.g., with \verb|glVertex|), OpenGL draws it at
+  \[
+  p' = M\,p, p'' = PMp
+  \]
+  Set Projection when the window resizes or the “lens” changes.\\
+Set Model–View every frame (camera), and per object (model transforms).
+  \begin{lstlisting}
+void reshape(int w,int h){
+  glViewport(0,0,w,h);
+
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  gluPerspective(40.0, (float)w/h, 1.0, 80.0);   // or glOrtho(...)
+
+  glMatrixMode(GL_MODELVIEW);                    // back to MV for drawing
+}
+
+void display(){
+  glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+  gluLookAt(0,0,6,  0,0,0,  0,1,0);              // View part of MV
+
+  glPushMatrix();                                 // Model part for object A
+    glTranslatef(...); glRotatef(...); glScalef(...);
+    drawA();
+  glPopMatrix();
+
+  glPushMatrix();                                 // Object B
+    glTranslatef(...);
+    drawB();
+  glPopMatrix();
+}
+\end{lstlisting}
+Changing the transformation matrix \(M\).
+  \begin{itemize}
+    \item \verb|glMatrixMode(GL_MODELVIEW)| — select the Model--View matrix stack.\\
+          \emph{Other choices:} \verb|GL_PROJECTION|, \verb|GL_TEXTURE|, \verb|GL_COLOR|.
+    \item \verb|glLoadIdentity()| — set \(M \leftarrow I\) (identity).
+    \item \verb|glTranslatef(tx,ty,tz)| — postmultiply: \(M \leftarrow M\,T\).
+    \item \verb|glRotatef(angle,x,y,z)| — postmultiply: \(M \leftarrow M\,R\).
+  \end{itemize}
+  
+\subsection*{Camera (View) Transform}
+\begin{itemize}
+  \item Build a camera frame with position \(\mathbf{t}\), forward \(\mathbf{w}\), up \(\mathbf{u}\), and left \(\mathbf{v}=\mathbf{u}\times\mathbf{w}\).
+  \item Transform world points to this camera frame (\emph{view} transform) before applying projection.
+\end{itemize}
+
+\subsection*{OpenGL Fixed-Function Pipeline Cheatsheet}
+\begin{itemize}
+  \item Order: \textbf{Model} \(\rightarrow\) \textbf{View} \(\rightarrow\) \textbf{Projection} \(\rightarrow\) \textbf{Viewport}.
+  \item View (camera): 
+\begin{verbatim}
+glMatrixMode(GL_MODELVIEW);
+glLoadIdentity();
+gluLookAt(eyeX,eyeY,eyeZ,  cenX,cenY,cenZ,  upX,upY,upZ);
+\end{verbatim}
+  \item Perspective (viewing frustum and clipping):
+\begin{verbatim}
+glMatrixMode(GL_PROJECTION);
+glLoadIdentity();
+gluPerspective(fovy, aspect, near, far);   // or glFrustum(...)
+\end{verbatim}
+  \item Orthographic:
+\begin{verbatim}
+glMatrixMode(GL_PROJECTION);
+glLoadIdentity();
+glOrtho(left,right,bottom,top,near,far);   // 2D: gluOrtho2D(...)
+\end{verbatim}
+  \item Objects outside the frustum are clipped; default window after projection and division is \([-1,1]^3\) in NDC.
+\end{itemize}
+
+\subsection*{Extras}
+\begin{itemize}
+  \item \textbf{Stereoscopic/3D}: render two slightly offset views (delivery via anaglyph, polarization, shutter glasses, etc.).
+  \item Other projections (e.g., stereographic) exist for special purposes.
+\end{itemize}
+\section{Colors}
+
+\subsection*{Light and Color Basics}
+\begin{itemize}
+  \item Visible light is a band of electromagnetic (EM) waves; what we perceive as a color is a \emph{mixture} of EM frequencies (e.g., red $\sim 4.3\times10^{14}$ Hz, violet $\sim 7.5\times10^{14}$ Hz). White is the most ``impure'' (broad-mixture) color.
+  \item A color’s spectrum can be sketched by an energy–frequency curve: \emph{dominant frequency} (peak), \emph{brightness} (area under the curve), and \emph{purity} (how concentrated the energy is around the dominant frequency).
+\end{itemize}
+
+\subsection*{Color Models (Tri‐stimulus Theory)}
+\begin{itemize}
+  \item A \textbf{color model} chooses three descriptors (axes) to specify colors, echoing the three cone types in the human eye.
+  \item We use three common models: \textbf{RGB} (displays), \textbf{CMY} (printing), and \textbf{HSV} (artist/user‐oriented control).
+\end{itemize}
+
+\subsection*{RGB (Additive)}
+\begin{itemize}
+  \item Colors are 3D vectors $(r,g,b)\in[0,1]^3$; adding colors is vector addition. The full set of colors forms a unit cube.
+  \item \emph{Additive} system: adding primaries makes the result \emph{brighter}; complementary pairs (e.g., red–cyan, green–magenta, blue–yellow) sum to white.
+\end{itemize}
+
+\subsection*{CMY (Subtractive)}
+\begin{itemize}
+  \item Uses cyan, magenta, yellow as primaries (ink/filters).
+  \item \emph{Subtractive} system: stacking pigments removes light—adding primaries makes the result \emph{darker}.
+\end{itemize}
+
+\subsection*{HSV (Hue–Saturation–Value)}
+\begin{itemize}
+  \item Constructed as a \emph{hexcone}: project the RGB cube onto a hexagon and stack layers by brightness.
+  \item $V=\max(R,G,B)$ (brightness), \; $S$ = distance from the gray axis to the color normalized by the hexagon radius (pureness), \; $H$ = angle around the axis (red $0^\circ$, green $120^\circ$, blue $240^\circ$).
+  \item Pure hue at $V=1,\,S=1$; when $S=0$ the hue is undefined (grays).
+\end{itemize}
+
+\subsection*{Color Gamut and Devices}
+\begin{itemize}
+  \item No device or primary set reproduces \emph{all} perceivable colors; the \textbf{gamut} is the subset achievable by a system.
+  \item Different devices (and even extended‐primary systems like RGBY or RGBCMY) have different gamuts.
+\end{itemize}
+
+\subsection*{Additive vs.\ Subtractive (Summary)}
+\begin{itemize}
+  \item \textbf{Additive (RGB)}: emit light; more primaries $\Rightarrow$ brighter (white at full).
+  \item \textbf{Subtractive (CMY)}: filter/absorb light; more inks $\Rightarrow$ darker (black at full).
+\end{itemize}
+
+\section*{Illumination and Shading}
+Phong Illumination: $I_{phong} = I_aK_a + f_{att}I_pK_d(N\cdot L) + f_{att}I_pK_s(R\cdot V)^n$
+\[\begin{bmatrix}
+  i_r \\ 
+  i_g \\ 
+  i_b
+\end{bmatrix} = \begin{bmatrix}
+    i_{ar}k_{ar}\\i_{ag}k_{ag}\\i_{ab}k_{ab} 
+  \end{bmatrix} (\text{Ambient}) + f_{att}I_pK_d(N\cdot L) (\text{Diffuse}) + f_{att}I_pK_s(R\cdot V)^n (\text{specular})
+\]
+\begin{itemize}
+  \item $I_a$ luminance in ambient term: $\begin{bmatrix}
+    i_{ar}&i_{ag}&i_{ab} 
+  \end{bmatrix}^T$: uniform lighting on every surface in the scene
+  \item $K_a$ material property: $\begin{bmatrix}
+    k_{ar}&k_{ag}&k_{ab} 
+  \end{bmatrix}^T$
+  \item $K_a$ diffuse material property: $\begin{bmatrix}
+    k_{dr}&k_{dg}&k_{db} 
+  \end{bmatrix}^T $ 
+  \item $K_s$ specular mat. prop: $\begin{bmatrix}
+    k_{sr}&k_{sg}&k_{sb} 
+  \end{bmatrix}^T $ all material properties $\in [0, 1]$
+  \item $f_{att}$ distance attenuation factor (of point light source)
+  \item $I_p$ point light source vector
+  \item $N \cdot L$ diffuse reflection $\propto \cos(\theta)$, N is surface normal, L is light vector
+  \item $R\cdot V$ reflection vector, V is viewpoint vector, R is reflection vector. \[R = 2(N\cdot L)N - L\]
+  \item $n$ shininess coefficient: higher $n \rightarrow$ smaller and sharper highlights $\in [1, 500]$
+\end{itemize}
+Multiple lightings: \[I_{phong} = I_aK_a + \sum_i f_{att, i}I_{p, i}[K_d(N\cdot L) + K_s(R\cdot V)^n]\]
+\begin{lstlisting}[mathescape=true]
+// Call once after you create the GL context/window.
+static void setupPhongExample(bool highlight = false) {
+    // ---------- Material (object) terms ----------
+    // $K_a$: ambient reflectance (RGBA)
+    GLfloat K_a[4] = { 0.20f, 0.20f, 0.20f, 1.0f };
+
+    // $K_d$: diffuse/albedo reflectance (RGBA)
+    GLfloat K_d[4] = { 0.70f, 0.70f, 0.75f, 1.0f }; // slightly bluish
+
+    // $K_s$: specular reflectance (RGBA) - white when highlight is on
+    GLfloat K_s[4] = { 0.20f, 0.20f, 0.20f, 1.0f };
+    if (highlight) { K_s[0] = K_s[1] = K_s[2] = 1.0f; } // strong white specular
+
+    // $n$: shininess exponent (0..128 in fixed-function OpenGL)
+    GLfloat shininess = highlight ? 100.0f : 16.0f;
+
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT,   K_a);       //  $K_a$
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE,   K_d);       //  $K_d$
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR,  K_s);       //  $K_s$
+    glMaterialf (GL_FRONT_AND_BACK, GL_SHININESS, shininess); //  $n$
+
+    // ---------- Global ambient light (scene ambient) ----------
+    // I_a: global ambient intensity (RGBA)
+    GLfloat I_a[4] = { 0.15f, 0.15f, 0.15f, 1.0f };
+    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, I_a); // contributes $K_a \times I_a$
+
+    // Optional: two-sided lighting if you render both faces
+    // glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+
+    // ---------- One positional light (Light 0) ----------
+    // $I_l$: light intensities (ambient/diffuse/specular) for this light
+    GLfloat L_ambient [4] = { 0.10f, 0.10f, 0.10f, 1.0f };
+    GLfloat L_diffuse [4] = { 1.00f, 1.00f, 1.00f, 1.0f };
+    GLfloat L_specular[4] = { 1.00f, 1.00f, 1.00f, 1.0f };
+
+    glLightfv(GL_LIGHT0, GL_AMBIENT,  L_ambient);  // $I_l$ (ambient)
+    glLightfv(GL_LIGHT0, GL_DIFFUSE,  L_diffuse);  // $I_l$ (diffuse)
+    glLightfv(GL_LIGHT0, GL_SPECULAR, L_specular); // $I_l$ (specular)
+
+    // Position (w=1 for point light, w=0 for directional/infinite)
+    GLfloat lightPos[4] = { -3.0f, 4.0f, 6.0f, 1.0f }; // (x,y,z,1)
+    glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
+
+    // ---------- Distance attenuation $f_{att}(d) = 1 / (k_c + k_l d + k_q d^2)$ ----------
+    // Defaults are kc=1, kl=kq=0 (no falloff). Set your own:
+    GLfloat k_c = 1.0f;   // constant term
+    GLfloat k_l = 0.06f;  // linear term
+    GLfloat k_q = 0.02f;  // quadratic term (most physically plausible)
+    glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION,  k_c);
+    glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION,    k_l);
+    glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, k_q);
+
+    // ---------- Pipeline toggles ----------
+    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHTING);
+    glShadeModel(GL_SMOOTH);   // Gouraud shading
+    glEnable(GL_NORMALIZE);    // keep normals unit-length after scaling
+    glEnable(GL_DEPTH_TEST);   // needed for proper 3D visibility
+}  
+\end{lstlisting}
+Spotlight: $\phi = \cos^{-1}(s \cdot v)$ where $v$ is spotlight direction, $s$ is vector from light source to the surface. both are unit vectors.\\
+light intensity of spotlight at $s$: $I_p^{'} = I_p(\cos \phi)^n = I_p(s\cdot v_s)^n$
+\subsection*{Shadings}
+\begin{itemize}
+  \item Flat shading: \texttt{glShadeModel(GL\_FLAT);}
+  \item Gouraud shading: use vertex normal (avg of all surfaces sharing the vertex), pixels in the polygon has interpolated color from all vertices. \texttt{glShadeModel(GL\_SMOOTH)}
+  \item Phong Shading: Compute vertex normal, interpolate normal vectors on each pixels
+  \item Toon shading: phong shading but use $N\cdot L$ and $R\cdot V$ with discrete range 
+\end{itemize}
+Problems with Interpolated Shading with Polygonal Models
+\begin{itemize}
+  \item Non-global effects
+  \item No shadow
+  \item Polygonal silhouette
+  \item Orientation dependence
+  \item Shared vertices
+  \item Misleading vertex normals
+\end{itemize}
+\textbf{Global vs Non-global Illumination}
+\begin{itemize}
+  \item \textbf{Global (Ray Tracing)}
+  \begin{itemize}
+    \item More photorealistic/complex
+    \item Computes many types of physical light interactions
+    \item Slow
+    \item e.g., CG movies
+  \end{itemize}
+  \item \textbf{Non-global (e.g., Phong Shading)}
+  \begin{itemize}
+    \item \textbf{Only} considers the light source, the surface point, and the viewer directly
+    \item Faster but less realistic
+    \item e.g., no shadow/reflection
+    \item e.g., real-time 3D games
+  \end{itemize}
+\end{itemize}
+\section*{Fractal drawings}
+\begin{lstlisting}
+void drawRecursiveSquares(int n) {
+  glPushMatrix();
+  if(n==0) return;
+  for(int i=0;i<4;i++) {
+    glPushMatrix();glPushMatrix();
+    glRotatef(90*i,0,0,1);
+    glTranslatef(1,1,0);
+    glScalef(0 5 0 5 0 5);glScalef(0.5,0.5,0.5);
+    drawRecursiveSquares(n-1);
+    glPopMatrix();
+  }
+  drawUnitTwoSquare();
+  glPopMatrix();
+}
+void drawHive(int n) {
+  if (n == 1) {
+    drawHexagon();
+    return;
+  }
+  glPushMatrix();
+  for (int i = 0; i < 6; i++) {
+    glRotated(60, 0, 0, 1);
+    glPushMatrix();
+    glTranslated(0, sqrt(3), 0);
+    drawHives(n - 1);
+    glPopMatrix();
+  }
+  glPopMatrix();
+}
+\end{lstlisting}
+
+\end{document}

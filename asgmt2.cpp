@@ -132,7 +132,7 @@ void generatePlanets()
         float b = static_cast<float>(rand()) / RAND_MAX;
 
         planet pl(max(2.0f, 3.2f+(i)),
-                  15.0f*(i+1),
+                  5.0f*(i+1),
                   r, g, b,
                   (10.0f-i)/10.0f,
                   360 * static_cast<float>(rand()) / RAND_MAX);                     // angle
@@ -146,7 +146,7 @@ void generatePlanets()
             float sb = static_cast<float>(rand()) / RAND_MAX;
 
             planet sat(max((10.0f-i)/10.0f+0.1f, j*0.1f+1.2f),
-                       45.0f*(j+1),
+                       15.0f*(j+1),
                        sr, sg, sb,
                        max(0.1f, 0.3f - j*0.2f),
                        360 * static_cast<float>(rand()) / RAND_MAX, 0.1f);                // angle

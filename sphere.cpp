@@ -72,7 +72,7 @@ void drawSpherePolygon(int step, float r, bool filled = false, bool outline = tr
         float cp = cosf(to_radian(i));
         float sp = sinf(to_radian(i));
         for (int j = 0; j < 360; j+=step) {
-            glBegin(GL_LINE_LOOP);
+            glBegin(GL_TRIANGLES);
             {
                 float x = getX(i, j);
                 float y = getY(i, j);
@@ -95,7 +95,7 @@ void drawSpherePolygon(int step, float r, bool filled = false, bool outline = tr
                 glVertex3f(x,y,z);
             }
             glEnd();
-            glBegin(GL_LINE_LOOP);
+            glBegin(GL_TRIANGLES);
             {
                 float x = getX(i+step, j);
                 float y = getY(i+step, j);
@@ -193,8 +193,11 @@ void displayPolygon() {
 void init(void)
 {
 	glClearColor (1.0, 1.0, 1.0, 1.0);
-	glShadeModel (GL_SMOOTH);
+	glShadeModel (GL_FLAT);
 	glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);         // turn on face culling
+    glCullFace(GL_BACK);            // cull back faces
+    glFrontFace(GL_CCW); 
 }
 
 
