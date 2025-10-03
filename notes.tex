@@ -1,4 +1,4 @@
-\documentclass[8pt,twocolumn]{extarticle}
+\documentclass[10pt,twocolumn]{extarticle}
 \usepackage[utf8]{inputenc}    
 \usepackage[T1]{fontenc}       
 \usepackage{lmodern}           
@@ -528,44 +528,34 @@ static void setupPhongExample(bool highlight = false) {
     // ---------- Material (object) terms ----------
     // $K_a$: ambient reflectance (RGBA)
     GLfloat K_a[4] = { 0.20f, 0.20f, 0.20f, 1.0f };
-
     // $K_d$: diffuse/albedo reflectance (RGBA)
     GLfloat K_d[4] = { 0.70f, 0.70f, 0.75f, 1.0f }; // slightly bluish
-
     // $K_s$: specular reflectance (RGBA) - white when highlight is on
     GLfloat K_s[4] = { 0.20f, 0.20f, 0.20f, 1.0f };
     if (highlight) { K_s[0] = K_s[1] = K_s[2] = 1.0f; } // strong white specular
-
     // $n$: shininess exponent (0..128 in fixed-function OpenGL)
     GLfloat shininess = highlight ? 100.0f : 16.0f;
-
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT,   K_a);       //  $K_a$
     glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE,   K_d);       //  $K_d$
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR,  K_s);       //  $K_s$
     glMaterialf (GL_FRONT_AND_BACK, GL_SHININESS, shininess); //  $n$
-
     // ---------- Global ambient light (scene ambient) ----------
     // I_a: global ambient intensity (RGBA)
     GLfloat I_a[4] = { 0.15f, 0.15f, 0.15f, 1.0f };
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, I_a); // contributes $K_a \times I_a$
-
     // Optional: two-sided lighting if you render both faces
     // glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
-
     // ---------- One positional light (Light 0) ----------
     // $I_l$: light intensities (ambient/diffuse/specular) for this light
     GLfloat L_ambient [4] = { 0.10f, 0.10f, 0.10f, 1.0f };
     GLfloat L_diffuse [4] = { 1.00f, 1.00f, 1.00f, 1.0f };
     GLfloat L_specular[4] = { 1.00f, 1.00f, 1.00f, 1.0f };
-
     glLightfv(GL_LIGHT0, GL_AMBIENT,  L_ambient);  // $I_l$ (ambient)
     glLightfv(GL_LIGHT0, GL_DIFFUSE,  L_diffuse);  // $I_l$ (diffuse)
     glLightfv(GL_LIGHT0, GL_SPECULAR, L_specular); // $I_l$ (specular)
-
     // Position (w=1 for point light, w=0 for directional/infinite)
     GLfloat lightPos[4] = { -3.0f, 4.0f, 6.0f, 1.0f }; // (x,y,z,1)
     glLightfv(GL_LIGHT0, GL_POSITION, lightPos);
-
     // ---------- Distance attenuation $f_{att}(d) = 1 / (k_c + k_l d + k_q d^2)$ ----------
     // Defaults are kc=1, kl=kq=0 (no falloff). Set your own:
     GLfloat k_c = 1.0f;   // constant term
@@ -574,7 +564,6 @@ static void setupPhongExample(bool highlight = false) {
     glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION,  k_c);
     glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION,    k_l);
     glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, k_q);
-
     // ---------- Pipeline toggles ----------
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHTING);

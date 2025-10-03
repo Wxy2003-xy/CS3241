@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.22)  3 OCT 2025 09:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.22)  3 OCT 2025 09:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -8,8 +8,8 @@ entering extended mode
 LaTeX2e <2022-11-01> patch level 1
 L3 programming layer <2023-02-22> (/usr/local/texlive/2023/texmf-dist/tex/latex/extsizes/extarticle.cls
 Document Class: extarticle 1996/10/08 v1.0 Non Standard LaTeX document class
-(/usr/local/texlive/2023/texmf-dist/tex/latex/extsizes/size8.clo
-File: size8.clo 1999/11/11 v1.4a NON-Standard LaTeX file (size option)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2022/07/02 v1.4n Standard LaTeX file (size option)
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/base/exscale.sty
 Package: exscale 2018/09/24 v2.1i Standard LaTeX package exscale
 LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 57.
@@ -343,12 +343,12 @@ LaTeX Font Info:    ... okay on input line 57.
 * \topmargin=-94.81622pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=9.0pt
+* \topskip=10.0pt
 * \footskip=30.0pt
 * \marginparwidth=4.0pt
 * \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=7.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -403,9 +403,9 @@ LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 5
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 59.
+(Font)              <10> on input line 59.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 59.
+(Font)              <7> on input line 59.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 59.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 59.
@@ -424,61 +424,139 @@ LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 12
  (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Underfull \hbox (badness 1590) in paragraph at lines 151--153
-[]\T1/lmr/bx/n/8 glClear(mask) \T1/lmr/m/n/8 Clear buffers. Com-mon: \T1/lmtt/m/n/8 GL_COLOR_BUFFER_BIT |
+Underfull \hbox (badness 1888) in paragraph at lines 130--133
+[]\T1/lmr/bx/n/10 glBegin(mode) \T1/lmr/m/n/10 ...\T1/lmr/bx/n/10 glEnd() \T1/lmr/m/n/10 De-fine a se-quence of ver-
  []
 
 
-Underfull \hbox (badness 4927) in paragraph at lines 175--178
-[]\T1/lmr/bx/n/8 glShadeModel(mode) \T1/lmtt/m/n/8 GL_FLAT \T1/lmr/m/n/8 = uni-form color per prim-i-tive,
+Underfull \hbox (badness 1360) in paragraph at lines 130--133
+\T1/lmr/m/n/10 tices for draw-ing. \T1/lmtt/m/n/10 mode \T1/lmr/m/n/10 = GL_POINTS, GL_LINES,
  []
 
 
-Underfull \hbox (badness 2600) in paragraph at lines 224--225
-[]\T1/lmr/bx/n/8 Model--View ma-trix $\OML/lmm/m/it/8 M$\T1/lmr/m/n/8 : con-cate-nates object--to--world (model)
+Underfull \hbox (badness 10000) in paragraph at lines 151--153
+[]\T1/lmr/bx/n/10 glClear(mask) \T1/lmr/m/n/10 Clear buffers. Com-mon:
+ []
+
+
+Underfull \hbox (badness 2698) in paragraph at lines 163--165
+[]\T1/lmr/bx/n/10 glutInitDisplayMode(flags) \T1/lmr/m/n/10 Se-lect dis-play mode, e.g.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 182--184
+[]\T1/lmr/bx/n/10 glMatrixMode(mode) \T1/lmr/m/n/10 Se-lect cur-rent ma-trix stack:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 200--202
+[]\T1/lmr/bx/n/10 gluPerspective(fov,aspect,n,f) \T1/lmr/m/n/10 Per-spec-tive pro-jec-tion
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+[]\T1/lmr/bx/n/10 Model--View ma-trix $\OML/lmm/m/it/10 M$\T1/lmr/m/n/10 : con-cate-nates object--to--
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+\T1/lmr/m/n/10 world (model) and world--to--camera (view) trans-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 224--225
+\T1/lmr/m/n/10 forms. Typ-i-cal com-po-si-tion (right-multiplied):
  []
 
 [1
 
 {/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
-Overfull \hbox (2.3732pt too wide) in paragraph at lines 334--335
-[]\T1/lmr/m/n/8 Depth buffer: [][]\T1/lmtt/m/n/8 glEnable(GL_DEPTH_TEST); glClear(GL_COLOR_BUFFER_BIT
+Underfull \hbox (badness 10000) in paragraph at lines 302--304
+|  \T1/lmtt/m/n/10 draw(node->back) $\OMS/lmsy/m/n/10 !$ \T1/lmtt/m/n/10 draw(node->coplanar) $\OMS/lmsy/m/n/10 !$
  []
 
 
-Underfull \hbox (badness 1939) in paragraph at lines 334--335
-[] \T1/lmtt/m/n/8 GL_DEPTH_BUFFER_BIT); glDepthMask(GL_TRUE); []\T1/lmr/m/n/8 (clear each frame).
+Underfull \hbox (badness 10000) in paragraph at lines 304--306
+|  \T1/lmtt/m/n/10 draw(node->front) $\OMS/lmsy/m/n/10 !$ \T1/lmtt/m/n/10 draw(node->coplanar) $\OMS/lmsy/m/n/10 !$
  []
 
 
-Overfull \hbox (5.55652pt too wide) in paragraph at lines 441--441
- []\T1/lmtt/m/n/8 glOrtho(left,right,bottom,top,near,far);   // 2D: gluOrtho2D(...)[] 
+Underfull \hbox (badness 2285) in paragraph at lines 307--310
+\T1/lmr/m/n/10 back-to-front or-der. Trans-parency be-comes straight-for-ward
  []
 
 
-Underfull \hbox (badness 3148) in paragraph at lines 447--448
-[]\T1/lmr/bx/n/8 Stereoscopic/3D\T1/lmr/m/n/8 : ren-der two slightly off-set views (de-liv-ery via
+Underfull \hbox (badness 1048) in paragraph at lines 307--310
+\T1/lmr/m/n/10 (alpha-blend as you go). :con-tentRe-f-er-ence[oaicite:6]index=6
+ []
+
+
+Overfull \hbox (38.26012pt too wide) detected at line 323
+\OT1/lmr/bx/n/10 n[] \OMS/lmsy/m/n/10 ^^A \OML/lmm/m/it/10 p \OT1/lmr/m/n/10 + \OML/lmm/m/it/10 d[] \OT1/lmr/m/n/10 = 2 \OML/lmm/m/it/10 > \OT1/lmr/m/n/10 0 \OMS/lmsy/m/n/10 ) []\OML/lmm/m/it/10 B;  []B;  []:
+ []
+
+
+Overfull \hbox (66.58304pt too wide) in paragraph at lines 334--335
+[]\T1/lmr/m/n/10 Depth buffer: [][]\T1/lmtt/m/n/10 glEnable(GL_DEPTH_TEST); glClear(GL_COLOR_BUFFER_BIT
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 334--335
+[] \T1/lmtt/m/n/10 GL_DEPTH_BUFFER_BIT); glDepthMask(GL_TRUE); []\T1/lmr/m/n/10 (clear
+ []
+
+
+Overfull \hbox (42.88878pt too wide) in paragraph at lines 335--336
+[]\T1/lmr/m/n/10 Back-face culling: [][]\T1/lmtt/m/n/10 glEnable(GL_CULL_FACE); glCullFace(GL_BACK);
  []
 
 [2]
-Overfull \hbox (15.88553pt too wide) detected at line 504
-[] \OT1/lmr/m/n/8 = [] ([]) + \OML/lmm/m/it/8 f[]I[]K[]\OT1/lmr/m/n/8 (\OML/lmm/m/it/8 N \OMS/lmsy/m/n/8 ^^A \OML/lmm/m/it/8 L\OT1/lmr/m/n/8 )([]) + \OML/lmm/m/it/8 f[]I[]K[]\OT1/lmr/m/n/8 (\OML/lmm/m/it/8 R \OMS/lmsy/m/n/8 ^^A \OML/lmm/m/it/8 V\OT1/lmr/m/n/8 )[]([])
+Overfull \hbox (31.55544pt too wide) in paragraph at lines 429--429
+ []\T1/lmtt/m/n/10 gluLookAt(eyeX,eyeY,eyeZ,  cenX,cenY,cenZ,  upX,upY,upZ);[] 
  []
 
-[3] (./notes.aux) ) 
+
+Overfull \hbox (63.05534pt too wide) in paragraph at lines 435--435
+ []\T1/lmtt/m/n/10 gluPerspective(fovy, aspect, near, far);   // or glFrustum(...)[] 
+ []
+
+
+Overfull \hbox (73.55531pt too wide) in paragraph at lines 441--441
+ []\T1/lmtt/m/n/10 glOrtho(left,right,bottom,top,near,far);   // 2D: gluOrtho2D(...)[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 467--468
+\T1/lmr/m/n/10 com-ple-men-tary pairs (e.g., red^^Ucyan, green^^Umagenta,
+ []
+
+
+Overfull \hbox (61.59058pt too wide) detected at line 504
+[] \OT1/lmr/m/n/10 = [] ([]) + \OML/lmm/m/it/10 f[]I[]K[]\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 N \OMS/lmsy/m/n/10 ^^A \OML/lmm/m/it/10 L\OT1/lmr/m/n/10 )([]) + \OML/lmm/m/it/10 f[]I[]K[]\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 R \OMS/lmsy/m/n/10 ^^A \OML/lmm/m/it/10 V\OT1/lmr/m/n/10 )[]([])
+ []
+
+[3]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 529.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 529.
+
+Underfull \vbox (badness 1383) has occurred while \output is active []
+
+ [4] (./notes.aux) ) 
 Here is how much of TeX's memory you used:
- 7754 strings out of 476025
- 118737 string characters out of 5790016
- 2216388 words of memory out of 5000000
- 28062 multiletter control sequences out of 15000+600000
- 563611 words of font info for 65 fonts, out of 8000000 for 9000
+ 7785 strings out of 476025
+ 119052 string characters out of 5790016
+ 2199388 words of memory out of 5000000
+ 28085 multiletter control sequences out of 15000+600000
+ 577247 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,13n,76p,403b,1563s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmri8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on notes.pdf (3 pages, 285332 bytes).
+ 72i,13n,76p,403b,1565s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on notes.pdf (4 pages, 335771 bytes).
 PDF statistics:
- 112 PDF objects out of 1000 (max. 8388607)
- 70 compressed objects within 1 object stream
+ 135 PDF objects out of 1000 (max. 8388607)
+ 84 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
